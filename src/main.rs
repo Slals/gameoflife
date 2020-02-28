@@ -56,14 +56,14 @@ impl CellStruct {
                 cells[0][0] = CellState::ALIVE;
                 cells[1][0] = CellState::ALIVE;
                 cells[2][0] = CellState::ALIVE;
-            },
+            }
             Struct::GLIDER => {
                 cells[2][0] = CellState::ALIVE;
                 cells[2][1] = CellState::ALIVE;
                 cells[1][1] = CellState::ALIVE;
                 cells[1][2] = CellState::ALIVE;
                 cells[0][0] = CellState::ALIVE;
-            },
+            }
             Struct::GLIDER_GUN => {
                 // Cube
                 cells[0][4] = CellState::ALIVE;
@@ -72,46 +72,46 @@ impl CellStruct {
                 cells[1][5] = CellState::ALIVE;
 
                 // Up branch
-                cells[9][3] = CellState::ALIVE;
-                cells[10][2] = CellState::ALIVE;
-                cells[11][2] = CellState::ALIVE;
+                cells[11][3] = CellState::ALIVE;
+                cells[12][2] = CellState::ALIVE;
+                cells[13][2] = CellState::ALIVE;
 
                 // Facade 1
-                cells[8][4] = CellState::ALIVE;
-                cells[8][5] = CellState::ALIVE;
-                cells[8][6] = CellState::ALIVE;
+                cells[10][4] = CellState::ALIVE;
+                cells[10][5] = CellState::ALIVE;
+                cells[10][6] = CellState::ALIVE;
 
                 // Back middle
-                cells[12][5] = CellState::ALIVE;
-                cells[13][3] = CellState::ALIVE;
-                cells[14][4] = CellState::ALIVE;
                 cells[14][5] = CellState::ALIVE;
-                cells[15][5] = CellState::ALIVE;
-                cells[14][6] = CellState::ALIVE;
-                cells[13][7] = CellState::ALIVE;
+                cells[15][3] = CellState::ALIVE;
+                cells[16][4] = CellState::ALIVE;
+                cells[16][5] = CellState::ALIVE;
+                cells[17][5] = CellState::ALIVE;
+                cells[16][6] = CellState::ALIVE;
+                cells[15][7] = CellState::ALIVE;
 
                 // Down branch
-                cells[9][7] = CellState::ALIVE;
-                cells[10][8] = CellState::ALIVE;
-                cells[11][8] = CellState::ALIVE;
+                cells[11][7] = CellState::ALIVE;
+                cells[12][8] = CellState::ALIVE;
+                cells[13][8] = CellState::ALIVE;
 
-                cells[18][2] = CellState::ALIVE;
-                cells[18][3] = CellState::ALIVE;
-                cells[18][4] = CellState::ALIVE;
-                cells[19][2] = CellState::ALIVE;
-                cells[19][3] = CellState::ALIVE;
-                cells[19][4] = CellState::ALIVE;
-                cells[20][1] = CellState::ALIVE;
+                cells[20][2] = CellState::ALIVE;
+                cells[20][3] = CellState::ALIVE;
+                cells[20][4] = CellState::ALIVE;
+                cells[21][2] = CellState::ALIVE;
+                cells[21][3] = CellState::ALIVE;
+                cells[21][4] = CellState::ALIVE;
                 cells[22][1] = CellState::ALIVE;
-                cells[22][0] = CellState::ALIVE;
-                cells[20][5] = CellState::ALIVE;
+                cells[24][1] = CellState::ALIVE;
+                cells[24][0] = CellState::ALIVE;
                 cells[22][5] = CellState::ALIVE;
-                cells[22][6] = CellState::ALIVE;
+                cells[24][5] = CellState::ALIVE;
+                cells[24][6] = CellState::ALIVE;
 
-                cells[32][2] = CellState::ALIVE;
-                cells[32][3] = CellState::ALIVE;
-                cells[33][2] = CellState::ALIVE;
-                cells[33][3] = CellState::ALIVE;
+                cells[34][2] = CellState::ALIVE;
+                cells[34][3] = CellState::ALIVE;
+                cells[35][2] = CellState::ALIVE;
+                cells[35][3] = CellState::ALIVE;
             }
         }
 
@@ -278,8 +278,7 @@ impl Gol {
                     if cell == CellState::ALIVE {
                         let (x, y) = (c + building_cells.pos_x, l + building_cells.pos_y);
                         if x < self.cells.len() && y < self.cells[c].len() {
-                            self.cells[x][y] =
-                                building_cells.cells[c][l];
+                            self.cells[x][y] = building_cells.cells[c][l];
                         }
                     }
                 }
@@ -347,22 +346,10 @@ impl EventHandler for Gol {
 
         if let Some(cell_struct) = &mut self.building_cells {
             match keycode {
-                KeyCode::Up => cell_struct.update_pos(
-                    cell_struct.pos_x,
-                    cell_struct.pos_y - 1,
-                ),
-                KeyCode::Down => cell_struct.update_pos(
-                    cell_struct.pos_x,
-                    cell_struct.pos_y + 1,
-                ),
-                KeyCode::Right => cell_struct.update_pos(
-                    cell_struct.pos_x + 1,
-                    cell_struct.pos_y,
-                ),
-                KeyCode::Left => cell_struct.update_pos(
-                    cell_struct.pos_x - 1,
-                    cell_struct.pos_y,
-                ),
+                KeyCode::Up => cell_struct.update_pos(cell_struct.pos_x, cell_struct.pos_y - 1),
+                KeyCode::Down => cell_struct.update_pos(cell_struct.pos_x, cell_struct.pos_y + 1),
+                KeyCode::Right => cell_struct.update_pos(cell_struct.pos_x + 1, cell_struct.pos_y),
+                KeyCode::Left => cell_struct.update_pos(cell_struct.pos_x - 1, cell_struct.pos_y),
                 KeyCode::Space => self.build(),
                 _ => (),
             }
@@ -372,7 +359,7 @@ impl EventHandler for Gol {
                     if !self.auto_step {
                         self.next_step();
                     }
-                },
+                }
                 _ => (),
             }
         }
